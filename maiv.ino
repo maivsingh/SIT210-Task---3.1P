@@ -18,18 +18,14 @@
 #include "thingProperties.h"
 #include "DHT.h"
 
-#define DHTPIN 9                          // defining the pin to which the temperature sensor is attached to the arduino
-#define DHTTYPE DHT22                     // defining the sensor type. Here, it is DHT22
-DHT dht(DHTPIN, DHTTYPE);                 // Initializing the DHT sensor
+#define DHTPIN 2                          
+#define DHTTYPE DHT22                   
+DHT dht(DHTPIN, DHTTYPE);             
 void setup() {
-  // Initialize serial and wait for port to open:
   Serial.begin(9600);
-  // This delay gives the chance to wait for a Serial Monitor without blocking if none is found
   delay(1500); 
-
   // Defined in thingProperties.h
   initProperties();
-
   // Connect to Arduino IoT Cloud
   ArduinoCloud.begin(ArduinoIoTPreferredConnection);
   
@@ -47,18 +43,14 @@ void setup() {
 
 void loop() {
   ArduinoCloud.update();
-  // Your code here 
-  temp= dht.readTemperature();                              
-  // storing the value of temperature in temp variable
+  temp = dht.readTemperature();                              
   Serial.print("TEMPERATURE: ");
   Serial.print(temp);
   Serial.println("°C ");
-  delay(3000);
+  delay(30000);
 }
 
 void onLedChange() {
-  // Do something
   digitalWrite(LED_BUILTIN, Led);                        
 }
-
 
